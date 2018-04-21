@@ -3,8 +3,18 @@ layout: single
 title: "《大型分布式网站架构》读后感"
 date: 2018-04-21 04:16:50 +0800
 categories: 读书
+excerpt: "This post should display a **header with an overlay image**, if the theme supports it."
 header:
   teaser: /assets/images/home_header.jpg
+  overlay_image: /assets/images/home_header.jpg
+  # overlay_color: "#333"
+  # overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  # overlay_filter: rgba(255, 0, 0, 0.5)
+  caption: "图片来源: [**Unsplash**](https://unsplash.com)"
+  cta_label: "More Info"
+  cta_url: "https://unsplash.com"
+# sidebar:
+#   nav: "docs"
 ---
 
 一下子买了8本技术书籍，最吸引我的还是这本《大型分布式网站架构》了，那第一本啃的书就它了。

@@ -1,0 +1,145 @@
+---
+layout: single
+title: Java多线程-同步计数器
+date: 2015-09-28 10:36:30
+tags: [ '同步计数器', '多线程', 'java' ]
+category: java
+---
+
+比较三个Java里比较常见的同步计数器
+- CountDownLatch
+- Semaphore
+- CyclicBarrier
+
+<!--more-->
+
+##CountDownLatch
+
+CountDownLatch 是一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待，直到计数值变为零，否则一直阻塞或者线程被中断或者超出了指定的时间
+
+**使用场景**：
+在一些应用中需要等待某个条件或者多个条件后才能开始做后面的事情。
+- 在多线程下载的应用中要保证所有的下载进程都完成了下载，才能算下载成功
+- 相仿的多文件上传也是一样的，只有在所有的进程都上传完成了，才算文件上传成功
+- 在工作流的拓扑应用中，D事件只有在A，B，C都完成的前提下才能继续进行
+
+**样例**：
+模拟一个场景，只有三个工作都完成了才算项目的完成
+
+```java
+public class CountDownLatchDemo {
+	public static void main(String[] args) throws InterruptedException {
+		CountDownLatch latch = new CountDownLatch(3);
+		for (int i = 0; i < 3; i++) {
+			Worker worker = new Worker("workerNum:"+i, latch);
+			worker.start();
+		}
+		latch.await();
+		System.out.println("Main thread end!");
+	}
+	static class Worker extends Thread{
+		private String workerName;
+		private CountDownLatch latch;
+		public Worker(String workerName ,CountDownLatch latch) {
+			this.workerName = workerName;
+			this.latch = latch;
+		}
+		@Override
+		public void run (){
+			try {
+				System.out.println("worker:"+workerName+" is begin.");
+				Thread.sleep(1000L);
+				System.out.println("worker:"+workerName+" is end");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			latch.countDown();
+		}
+	}
+}
+```
+
+##Semaphore
+Semaphore是一个计数信号量。在许可可用前会阻塞每一个*acquire()*，然后再获取该许可。每一个*release()*操作都会释放一个许可，就好像看世博会，里面出来几个了，再放几个进去，就像一种排队的机制。
+
+**使用场景**
+线程池、连接池、资源有限的应用，比如只有三个柜台要服务10个人
+
+**样例**
+
+```java
+public class SemaphoreDemo {
+	public static void main(String[] args) {
+		final Semaphore semaphore = new Semaphore(3);
+		for (int i = 0; i < 10; i++) {
+			final int no = i;
+			Runnable thread = new Runnable() {
+				@Override
+				public void run() {
+					try {
+						System.out.println("客户：" + no + "来到营业厅:");
+						Thread.sleep(300L);
+						semaphore.acquire();
+						System.out.println("客户："+no+"开始被服务..."+"现在空余的柜台数:"+semaphore.availablePermits());
+						System.out.println("现在正在等待的客户:"+semaphore.getQueueLength());
+						Thread.sleep(1000L);
+						semaphore.release();
+						System.out.println("客户:"+no +"结束服务");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			new Thread(thread).start();;
+		}
+		System.out.println("Main thread end!");
+	}
+}
+```
+
+##CyclicBarrier
+CyclicBarrier也是一个同步辅助类，最大的特点就是它允许一组线程相互等待，直到这一组线程都完成了需要完成的工作后，这些进程才开始继续后面的工作。CountDownLatch是一个线程或者多个线程，等待其他N个线程完成某个事情之后才能继续执行，CyclicBarrier是N个线程相互等待，在任何一个线程完成之前的任务前，所有线程都必须要等待
+
+**使用场景**
+大数据运算的时候需要分成多个步骤来完成，每个数据部分是分散的，现在需要统计所有数据，现在为了提高效率，快速计算，采用并发的方式，多个线程同时计算分布的数据，最后在进行统计
+
+**样例**
+
+```java
+public class CylicBarrierDemo {
+	public static void main(String[] args) {
+		CyclicBarrier barrier = new CyclicBarrier(3, new TotalTask());
+		for (int i = 0; i < 3; i++) {
+			DataTask work = new DataTask("数据部分："+i, barrier);
+			work.start();
+		}
+		System.out.println("Main thread end");
+	}
+	static class TotalTask extends Thread {
+		public void run() {
+			System.out.println("所有子任务都执行完了，就开始执行主任务了");
+		}
+	}
+	static class DataTask extends Thread {
+		private String dataNum;
+		private CyclicBarrier barrier;
+		public DataTask(String billName, CyclicBarrier barrier) {
+			this.dataNum = billName;
+			this.barrier = barrier;
+		}
+		public void run() {
+			try {
+				System.out.println(dataNum + "  开始运算");
+				Thread.sleep(1000L);
+				System.out.println(dataNum + "  运算完成，等待中");
+				barrier.await();
+				System.out.println("全部结束" + dataNum + "  才开始后面的工作");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (BrokenBarrierException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+```
