@@ -18,7 +18,7 @@ theme: minimal-mistakes-jekyll
 
 # Site Settings
 locale                   : "zh"
-title                    : "NilMe技术博客"
+title                    : "NilMe的技术博客"
 title_separator          : "-"
 name                     : "NilMe"
 description              : "研究互联网新技术，记录技术成长线路"
@@ -70,7 +70,7 @@ algolia:
   powered_by             : # true (default), false
 
 # SEO Related
-google_site_verification :
+google_site_verification : "googlecaa07c8089990db1"
 bing_site_verification   :
 yandex_site_verification :
 naver_site_verification  :
