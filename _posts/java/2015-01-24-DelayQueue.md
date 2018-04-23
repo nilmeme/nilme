@@ -2,7 +2,6 @@
 layout: single
 title: DelayQueue
 date: 2015-01-24 10:36:30
-tags: [ 'DelayQueue', 'java', '延时队列' ]
 category: java
 ---
 

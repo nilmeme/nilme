@@ -2,14 +2,14 @@
 layout: single
 title: Streams filter
 date: 2018-03-06 15:03:02
-tags: ['java']
 category: java
 toc: true
+excerpt: "将向你展示一些java 8个例子来演示的流filter()，collect()使用，findany()和orelse()。"
 ---
 
 ### 前言
 
-Lambda是Java 8的主要主题，这是一个非常酷的，期待已久的Java平台的补充。 但是，如果我们没有任何方法将lambda应用于收藏，单靠lambda就没有价值。 将接口迁移到能够在集合中使用lambdas的问题可以通过默认方法来解决，这些方法也被称为defender方法。 在这篇博文中，我们将深入研究Java集合的批量数据操作，将向你展示一些java 8个例子来演示的流filter()，collect()使用，findany()和orelse()。 如果您对Java Streams使用的最佳实践感兴趣，之前还有一篇关于如何使用Java Streams 的最佳实践。 除此之外，请查看[这篇文章](http://blog.nilme.me/java/2018/03/09/java/Java8-Streams.html)，尤其是如果您希望梳理一般关于Java最佳实践的知识。
+Lambda是Java 8的主要主题，这是一个非常酷的，期待已久的Java平台的补充。 但是，如果我们没有任何方法将lambda应用于收藏，单靠lambda就没有价值。 将接口迁移到能够在集合中使用lambdas的问题可以通过默认方法来解决，这些方法也被称为defender方法。 在这篇博文中，我们将深入研究Java集合的批量数据操作，将向你展示一些java 8个例子来演示的流filter()，collect()使用，findany()和orelse()。 如果您对Java Streams使用的最佳实践感兴趣，之前还有一篇关于如何使用Java Streams 的最佳实践。 除此之外，请查看[这篇文章](http://nilme.me/java/Java8-Streams/)，尤其是如果您希望梳理一般关于Java最佳实践的知识。
 
 <!--more-->
 

@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum" "sunrise"
 
 
 # Site Settings
@@ -101,11 +102,11 @@ analytics:
 author:
   name             : "Nilme"
   avatar           : "/assets/images/bio-photo.png"
-  bio              : "千里之行,始于足下"
-  location         : "中国 浙江"
+  bio              : "荒废了十年，花费了十年，有没有背叛自己的梦或对自己食言"
+  location         : "中国 浙江 杭州"
   email            : "nilme@qq.com"
-  uri              : "http://nilme.com"
-  home             : # null (default), "absolute or relative url to link to author home"
+  uri              : "http://nilme.me"
+  home             : "http://nilme.me" # null (default), "absolute or relative url to link to author home"
   bitbucket        :
   codepen          :
   dribbble         :
@@ -127,7 +128,7 @@ author:
   twitter          :
   vine             :
   weibo            :
-  xing             :
+  xing             : 
   youtube          : # "https://youtube.com/c/MichaelRoseDesign"
 
 # Reading Files
@@ -255,21 +256,7 @@ compress_html:
   ignore:
     envs: development
 
-
-collections:
-  portfolio:
-    output: true
-    permalink: /:collection/:path/
-
 defaults:
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: false
-      share: true
   # _posts
   - scope:
       path: ""

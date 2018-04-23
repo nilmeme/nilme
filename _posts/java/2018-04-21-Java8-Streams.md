@@ -2,7 +2,6 @@
 layout: single
 title: Java8-Streams
 date: 2018-03-09 19:39:43
-tags: ['java']
 category: java
 toc: true
 ---
