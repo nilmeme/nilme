@@ -5,7 +5,7 @@ category: LBS
 tags:
   - LBS
 toc: true
-excerpt: "LBS应用中查找附近的人, 使用mongodb的高效解决方案, 自带过期设置, 快速集成"
+excerpt: "LBS应用中查找附近的人, 使用mongodb的高效解决方案, 自带过期设置, 快速集成。系类文章有mysql、redis和mongodb三种解决方案，方便读者自由选择。"
 header:
   teaser: /assets/images/lbs/lbs-img10.jpg
   overlay_image: /assets/images/lbs/lbs-img11.jpg
@@ -19,7 +19,7 @@ header:
 * [LBS-查找附近的人-redis命令实现](http://nilme.me/lbs/LBS-查找附近的人-redis命令实现.html)
 * [LBS-查找附近的人-redis-spring实现](http://nilme.me/lbs/LBS-查找附近的人-redis-spring实现.html)
 
-接下来我们开始介绍mongodb的解决方案。
+接下来我们开始介绍mongodb的解决方案。mongodb也是早些年“快的”的解决方案。
 
 ## 地理空间数据
 
@@ -192,24 +192,24 @@ db.runCommand(
 创建集合-插入数据-建立索引
 
 ```sql
-db.createCollection("location2")
-db.location2.save( {_id: "A", position: [0.1, -0.1]} )
-db.location2.save( {_id: "B", position: [1.0, 1.0]} )
-db.location2.save( {_id: "C", position: [0.5, 0.5]} )
-db.location2.save( {_id: "D", position: [-0.5, -0.5]} )
-db.location2.ensureIndex( {position: "2d"} )
+db.createCollection("location")
+db.location.save( {_id: "A", position: [0.1, -0.1]} )
+db.location.save( {_id: "B", position: [1.0, 1.0]} )
+db.location.save( {_id: "C", position: [0.5, 0.5]} )
+db.location.save( {_id: "D", position: [-0.5, -0.5]} )
+db.location.ensureIndex( {position: "2d"} )
 ```
 
 查询point(0,0),半径0.7附近的点
 
 ```sql
-db.location2.find( {position: { $near: [0,0], $maxDistance: 0.7  } } )
+db.location.find( {position: { $near: [0,0], $maxDistance: 0.7  } } )
 ```
 
 查询[0.25, 0.25], [1.0,1.0]区域附近的点
 
 ```sql
-db.location2.find( {position: { $within: { $box: [ [0.25, 0.25], [1.0,1.0] ] } } } )
+db.location.find( {position: { $geoWithin: { $box: [ [0.25, 0.25], [1.0,1.0] ] } } } )
 ```
 
 > 参考 [mongodb官方文档](https://docs.mongodb.com/manual/geospatial-queries)

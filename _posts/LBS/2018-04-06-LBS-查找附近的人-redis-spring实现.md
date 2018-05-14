@@ -4,7 +4,7 @@ date: 2018-04-06 21:12:03
 category: LBS
 tags:
   - LBS
-excerpt: "LBS应用中查找附近的人, 使用redis的高效解决方案"
+excerpt: "LBS应用中查找附近的人, 使用redis的高效解决方案。系类文章有mysql、redis和mongodb三种解决方案，方便读者自由选择。"
 header:
   teaser: /assets/images/lbs/lbs-img8.jpg
   overlay_image: /assets/images/lbs/lbs-img9.jpg
