@@ -4,7 +4,6 @@ date: 2018-04-06 21:12:03
 category: LBS
 tags:
   - LBS
-toc: true
 excerpt: "LBS应用中查找附近的人, 使用redis的高效解决方案"
 header:
   teaser: /assets/images/lbs/lbs-img8.jpg
@@ -14,7 +13,7 @@ header:
 
 前面介绍了地理坐标定位相关的基础知识和查找附近人的MySQL版实现和redis版的6个基础命令，本则主要介绍redis+spring版的实现。
 
-代码主要对redis-geo的6个命令做了demo的测试，在最后我们生成600w条数据测试一下redis的geo实现效率如何,没错，mysql版我们使用300w，redis当然要更高一些。
+代码主要对redis-geo的6个命令做了demo的测试，在最后我们生成600w条数据测试一下redis的geo实现效率如何。没错，mysql版我们使用300w，redis当然要更高一些来体现redis方案的优越性。
 
 ```java
 @RunWith(SpringRunner.class)
@@ -131,7 +130,7 @@ public class GEOTests {
 
 代码中已经添加了注释，所以不过多解释。
 
-spring-data-redis 还有另外一种添加数据的方式，使用的是JPA的方式， [spring-data-redis文档](https://docs.spring.io/spring-data/redis/docs/2.1.0.M2/reference/html/#redis.repositories.indexes.geospatial)，有兴趣也可以试一下，本人试了一下刚觉没有很强的实际意义，如果你想把其他一些需要持久化的数据也存进去的话，也可以选择。
+spring-data-redis 还有另外一种添加数据的方式，使用的是JPA的方式， [spring-data-redis文档](https://docs.spring.io/spring-data/redis/docs/2.1.0.M2/reference/html/#redis.repositories.indexes.geospatial)，有兴趣也可以试一下，本人试了一下感觉没有很强的实际意义，如果你想把其他一些需要持久化的数据也存进去的话，也可以选择。
 
 现在我们自动生成600w条数据测试性能，结果是 **GEORADIUS** 和 **GEORADIUSBYMEMBER** 查询600w条数据并计算距离并排序耗时 **80ms** 左右，效率非常的高。唯一的不足就是不方便分页。
 
